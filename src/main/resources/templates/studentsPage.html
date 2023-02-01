@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Students</title>
+    <link rel="stylesheet" th:href="@{/bootstrap.min.css}">
+</head>
+<body style="background-color: mediumturquoise">
+<h1 style="size: 40px;text-align: center">Приветствуем Вас!</h1>
+<div th:each="element:${stud}"
+     style="margin-left: 25px;margin-right: 10px;padding: 17px;margin-block: 15px;height: auto;overflow-wrap: break-word;border: #5c636a solid;border-radius: 10px;background-color: #f0f0f0">
+    <a id="liveToastBtn" th:method="delete" th:href="@{'/students/delete'(id=${element.getId()})}"><img
+            style="width: 20px;height: 20px; border: solid blue 2px;border-radius: 20px;" title="Удалить задачу"
+            th:src="@{img/squre1.jpg}" onmouseover="this.src='img/square2.jpg';" onmouseout="this.src='img/square1.jpg';"/></a>
+    <div style="display: inline">Name: <p style="display: inline" th:text="${element.studentName}"></p> Course: <p
+            style="display: inline" th:text="${element.nameOfCourse}"></p></div>
+    <br>
+</div>
+<br>
+<br>
+<form th:action="@{/students}" th:object="${student}" th:method="delete">
+    <fieldset>
+        <div style="">
+            <div class="col-12">
+                <div style="position: fixed; display:inline-block;background-color: whitesmoke;bottom: 1px;left:0;right: 0;border-radius: 5px; border: darkblue solid">
+                    <select th:field="*{nameOfCourse}" class="form-select" aria-label="Пример выбора по умолчанию">
+                        <option value="" selected>Выберите название курса...</option>
+                        <option value="Java">Java</option>
+                        <option value="Python">Python</option>
+                        <option value="Ruby">Ruby</option>
+                        <option value="JavaScript">JavaScript</option>
+                        <option value="Go">Go</option>
+                        <option value="C#">C#</option>
+                        <option value="Basic">Basic</option>
+                    </select><span th:if="${#fields.hasErrors('nameOfCourse')}" th:errors="*{nameOfCourse}"></span>
+                    <input th:field="*{studentName}" type="text" name="newTask" class="form-control" id="inputAddress"
+                           placeholder="Имя студента..."><span th:if="${#fields.hasErrors('studentName')}"
+                                                               th:errors="*{studentName}"></span>
+                    <div th:text="${e}"></div>
+                    <input style="color: #d63384" type="submit" value="Добавить задачу!!!">
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</form>
+<script th:href="@{/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
